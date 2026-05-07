@@ -1,0 +1,20 @@
+test_name: Validar endpoint de produtos
+
+stages:
+  - name: Buscar produtos
+
+    request:
+      url: http://localhost:8000/api/produtos
+      method: GET
+
+    response:
+      status_code: 200
+
+      json:
+        - nome: "teclado"
+          preco: 200.0
+          estoque: !anyint
+
+        - nome: "mouse"
+          preco: 100.0
+          estoque: !anyint
