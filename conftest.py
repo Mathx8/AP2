@@ -3,7 +3,7 @@ import tempfile
 import pytest
 from fastapi.testclient import TestClient
 
-@pytest.fixture(scope="session")
+@pytest.fixture(scope="function")
 def test_db():
     db_fd, db_path = tempfile.mkstemp()
 
