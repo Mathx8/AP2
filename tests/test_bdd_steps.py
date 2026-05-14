@@ -1,17 +1,20 @@
 from pytest_bdd import scenarios, given, when, then
-from fastapi.testclient import TestClient
-from main import app
 
 scenarios("./features/compra_sucesso.feature")
 
-client = TestClient(app)
+response = None
 
 @given('que existe um produto "teclado"')
-def produto_existe():
-    pass
+def produto_existe(client):
+    response = client.get("/api/produtos")
+
+    assert response.status_code == 200
+    produtos = response.json()
+
+    assert any(p["nome"] == "teclado" for p in produtos)
 
 @when('eu realizar uma compra do produto "teclado"')
-def realizar_compra():
+def realizar_compra(client):
     global response
 
     response = client.post(
